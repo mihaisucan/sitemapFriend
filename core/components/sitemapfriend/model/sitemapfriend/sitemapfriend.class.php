@@ -110,11 +110,12 @@ class sitemapFriend {
     if (!empty($this->config['skipTemplates'])) {
       $skipTemplates = $this->prepareList($this->config['skipTemplates'], true);
       $this->queryWhere[1] = '`Template`.`id` NOT IN (' . $skipTemplates . ')';
+      unset($skipTemplates);
     }
 
     if (!empty($this->config['excludeResources'])) {
       $excludeResources =
-        $this->prepareList($this->config['excludeResources'], true);
+        $this->prepareList($this->config['excludeResources']);
     } else {
       $excludeResources = array();
     }
@@ -137,9 +138,11 @@ class sitemapFriend {
     }
 
     if (!empty($excludeResources)) {
-      $this->queryWhere[2] = '`modResource`.`id` NOT IN (' .
-        array_unique($excludeResources) . ')';
+      $excludeResources = implode('", "', array_unique($excludeResources));
+      $this->queryWhere[2] = '`modResource`.`id` NOT IN ("' .
+        $excludeResources . '")';
     }
+    unset($excludeResources);
 
     if (!empty($this->config['skipResources'])) {
       $this->skipResources = $this->prepareList($this->config['skipResources']);
