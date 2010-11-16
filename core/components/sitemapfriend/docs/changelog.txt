@@ -1,0 +1,5 @@
+Changelog for sitemapFriend.
+
+sitemapFriend 1.0
+====================================
+- Initial release.
