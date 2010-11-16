@@ -1,5 +1,5 @@
 Changelog for sitemapFriend.
 
-sitemapFriend 1.0
-====================================
+sitemapFriend 1.0-beta (2010-11-16)
+===============================================================================
 - Initial release.
