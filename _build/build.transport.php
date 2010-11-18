@@ -40,7 +40,7 @@ set_time_limit(0);
 define('PKG_NAME', 'sitemapFriend');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 define('PKG_VERSION', '1.0');
-define('PKG_RELEASE', 'beta');
+define('PKG_RELEASE', 'beta2');
 
 $sources = array('root' => dirname(dirname(__FILE__)));
 $sources['build'] = $sources['root'] . '/_build';
@@ -74,47 +74,53 @@ $category->set('category', PKG_NAME);
 
 /* create the chunks */
 
-$chunkNames = array('sitemap_html_item', 'sitemap_html_container',
-  'sitemap_html_outer', 'sitemap_xml_item', 'sitemap_xml_outer');
+$chunkNames = array(
+  array('sitemap_html_item', 'The default chunk used for each link displayed in an HTML site map.'),
+  array('sitemap_html_container', 'The default chunk used for each group/folder of pages displayed in an HTML site map.'),
+  array('sitemap_html_outer', 'The default chunk used for wrapping the entire list of pages in an HTML site map.'),
+  array('sitemap_xml_item', 'The default chunk used for each link displayed in an XML site map.'),
+  array('sitemap_xml_outer', 'The default chunk used for each group/folder of pages displayed in an XML site map.'),
+);
 $chunks = array();
 
 $modx->log(modX::LOG_LEVEL_INFO,'Packaging chunks...');
-foreach ($chunkNames as $id => $chunkName) {
+foreach ($chunkNames as $id => $chunkInfo) {
+  $chunkName = $chunkInfo[0];
+  $chunkDesc = $chunkInfo[1];
   $chunk = $modx->newObject('modChunk');
   $chunk->set('id', $id);
   $chunk->set('name', $chunkName);
 
   $chunkName = strtolower($chunkName);
 
-  $chunk->set('description', PKG_NAME_LOWER . ".tpl.$chunkName.desc");
+  $chunk->set('description', $chunkDesc);
   $chunk->setContent(file_get_contents($sources['chunks'] . "/$chunkName.chunk.tpl"));
-
-  /*
-  $name = explode('_', $chunkName);
-  $properties = include $sources['properties'] . "/chunk_{$name[2]}.inc.php";
-  $chunk->setProperties($properties);
-   */
 
   $chunks[] = $chunk;
 }
 $category->addMany($chunks);
-unset($chunkNames, $chunks, $chunk, $properties);
+unset($chunkNames, $chunks, $chunk, $properties, $chunkInfo, $chunkName, $chunkDesc);
 
 
 /* create the snippet */
 
-$snippetNames = array('sitemapFriend');
+$snippetNames = array(
+  array('sitemapFriend', 'Allows you to generate site maps as HTML, XML or other formats.'),
+);
 $snippets = array();
 
 $modx->log(modX::LOG_LEVEL_INFO, 'Packaging snippets...');
-foreach ($snippetNames as $id => $snippetName) {
+foreach ($snippetNames as $id => $snippetInfo) {
+  $snippetName = $snippetInfo[0];
+  $snippetDesc = $snippetInfo[1];
+
   $snippet = $modx->newObject('modSnippet');
   $snippet->set('id', $id);
   $snippet->set('name', $snippetName);
 
   $snippetName = strtolower($snippetName);
 
-  $snippet->set('description', PKG_NAME_LOWER . ".snippet.$snippetName.desc");
+  $snippet->set('description', $snippetDesc);
   $snippet->setContent(file_get_contents($sources['snippets'] . "/$snippetName.snippet.php"));
 
   $properties = include $sources['properties'] . "/snippet_$snippetName.inc.php";
@@ -123,7 +129,7 @@ foreach ($snippetNames as $id => $snippetName) {
   $snippets[] = $snippet;
 }
 $category->addMany($snippets);
-unset($snippetNames, $snippets, $snippet, $properties);
+unset($snippetNames, $snippets, $snippet, $properties, $snippetInfo, $snippetName, $snippetDesc);
 
 /* create category vehicle */
 $attr = array(

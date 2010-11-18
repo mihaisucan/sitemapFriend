@@ -33,4 +33,3 @@
  * @language en
  */
 $_lang['sitemapFriend'] = 'sitemapFriend';
-$_lang['snippet.sitemapfriend.desc'] = 'This snippet allows you to generate sitemaps for your web site, in HTML and XML formats.';
