@@ -46,6 +46,7 @@ $_lang['skipTemplates'] = 'A comma-separated list of template IDs to skip. Will 
 $_lang['excludeResources'] = 'A comma-separated list of resources to exclude entirely from the site map. Child resources will also be excluded. The resources pointed at by the modx options error_page, site_unavailable_page, unauthorized_page and the site map page itself are always excluded.';
 $_lang['skipResources'] = 'A comma-separated list of resources to hide from the site map. Child resources will NOT be excluded.';
 $_lang['includeResources'] = 'A comma-separated list of resources to always include in the site map, even if the given resource would otherwise be filtered out by the showDeleted, showUnpublished, onlySearchable and showHidden options.';
+$_lang['excludeChildrenOf'] = 'A comma-separated list of resources for which you do not want to have their children included in the site map. The resources listed here will be included, only the children will be skipped.';
 $_lang['parentTitles'] = 'Include parent resource titles in the site map. Default value: false.';
 $_lang['parentTitlesReversed'] = 'If parent resource titles are used, then this tells if the titles should be in a reversed order. Default is false.';
 $_lang['titleSeparator'] = 'If parent resource titles are used, then this tells the titles separator string. The default string is \' - \'.';

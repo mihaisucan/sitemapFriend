@@ -1,5 +1,12 @@
 Changelog for sitemapFriend.
 
+sitemapFriend 1.0-beta2 (2010-11-20)
+===============================================================================
+- Fixed issue #1: localization issues.
+- Fixed issue #2: Function to exclude all children from a parent.
+- Fixed issue #3: skip external links (modWebLink).
+
+
 sitemapFriend 1.0-beta (2010-11-16)
 ===============================================================================
 - Initial release.

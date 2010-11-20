@@ -44,6 +44,7 @@ class sitemapFriend {
     'excludeResources' => '',
     'skipResources' => '',
     'includeResources' => '',
+    'excludeChildrenOf' => '',
     'sortBy' => 'menuindex',
     'sortDir' => 'ASC',
     'parentTitles' => false,
@@ -58,6 +59,7 @@ class sitemapFriend {
   protected $modx = null;
   protected $skipResources = array();
   protected $includeResources = array();
+  protected $excludeChildrenOf = array();
   protected $queryWhere = array();
   protected $parentTitles = array();
 
@@ -83,16 +85,21 @@ class sitemapFriend {
   }
 
   /**
-   * Generate the entire Sitemap.
+   * Generate the entire site map.
    *
    * @access public
-   * @return string The Sitemap (XML or HTML), based on current configuration.
+   * @return string The ste map output, based on current configuration. Format
+   * is entirely dependent on the chunks used.
    */
   public function run() {
     $this->parentTitles = array();
-    $this->queryWhere = array();
     $this->skipResources = array();
     $this->includeResources = array();
+    $this->excludeChildrenOf = array();
+
+    $this->queryWhere = array(
+      'modResource.class_key:!=' => 'modWebLink',
+    );
 
     if (!empty($this->config['contexts'])) {
       $this->queryWhere['modResource.context_key:IN'] =
@@ -148,6 +155,10 @@ class sitemapFriend {
       $this->skipResources = $this->prepareList($this->config['skipResources']);
     }
 
+    if (!empty($this->config['excludeChildrenOf'])) {
+      $this->excludeChildrenOf = $this->prepareList($this->config['excludeChildrenOf']);
+    }
+
     if (!empty($this->config['includeResources'])) {
       $this->includeResources = $this->prepareList($this->config['includeResources']);
     } else {
@@ -171,7 +182,6 @@ class sitemapFriend {
     $output = $this->runDeep($this->config['startId']);
     if (!empty($this->config['tplOuter'])) {
       $props = array(
-        'type' => $this->config['type'],
         'startId' => $this->config['startId'],
         'items' => $output,
       );
@@ -183,6 +193,7 @@ class sitemapFriend {
     $this->queryWhere = array();
     $this->skipResources = array();
     $this->includeResources = array();
+    $this->excludeChildrenOf = array();
 
     return $output;
   }
@@ -192,7 +203,7 @@ class sitemapFriend {
    *
    * @access protected
    * @param integer $currentParent The current parent resource the iteration
-   * is on
+   * is on.
    * @return string The generated output.
    */
   protected function runDeep($currentParent = 0, $depth = 0) {
@@ -252,7 +263,7 @@ class sitemapFriend {
       $props = array('items' => '');
 
       /* if children, recurse */
-      if ($children > 0) {
+      if ($children > 0 && !in_array($id, $this->excludeChildrenOf)) {
         $props['items'] = $this->runDeep($id, $depth + 1);
       }
 
@@ -322,7 +333,7 @@ class sitemapFriend {
   }
 
   /**
-   * Prepares a comma-separated list for a query
+   * Prepares a comma-separated list for a query.
    *
    * @access protected
    * @param string $str The comma-separated list to prepare.
@@ -341,7 +352,7 @@ class sitemapFriend {
   }
 
   /**
-   * Gets a chunk and caches it.
+   * Get the output of a chunk.
    *
    * @access protected
    * @param string $name The name of the chunk.

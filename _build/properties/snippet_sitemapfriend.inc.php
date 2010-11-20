@@ -149,6 +149,14 @@ $properties = array(
         'lexicon' => PKG_NAME_LOWER . ':properties',
     ),
     array(
+        'name' => 'excludeChildrenOf',
+        'desc' => 'excludeChildrenOf',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => PKG_NAME_LOWER . ':properties',
+    ),
+    array(
         'name' => 'sortBy',
         'desc' => 'sortBy',
         'type' => 'textfield',
