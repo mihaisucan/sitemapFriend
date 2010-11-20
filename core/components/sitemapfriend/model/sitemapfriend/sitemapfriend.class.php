@@ -281,6 +281,7 @@ class sitemapFriend {
         $lastmod = strtotime($lastmod);
 
         $props['parent'] = $currentParent;
+        $props['id'] = $id;
         $props['url'] = $url;
         $props['lastmod'] = date($this->config['lastmodFormat'], $lastmod);
         $props['title'] = $title;
@@ -322,7 +323,7 @@ class sitemapFriend {
     if ($depth > 0 && !empty($this->config['tplContainer'])) {
       $props = array(
         'depth' => $depth,
-        'parent' => $currentParent,
+        'id' => $currentParent,
         'items' => $output,
       );
       $output = $this->getChunk('Container', $props);
