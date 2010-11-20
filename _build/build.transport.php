@@ -40,7 +40,7 @@ set_time_limit(0);
 define('PKG_NAME', 'sitemapFriend');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 define('PKG_VERSION', '1.0');
-define('PKG_RELEASE', 'beta2');
+define('PKG_RELEASE', 'beta3');
 
 $sources = array('root' => dirname(dirname(__FILE__)));
 $sources['build'] = $sources['root'] . '/_build';

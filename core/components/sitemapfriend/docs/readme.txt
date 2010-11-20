@@ -1,9 +1,9 @@
 --------------------
 Snippet: sitemapFriend
 --------------------
-Version: 1.0-beta2
+Version: 1.0-beta3
 Created: November 16, 2010
-Updated: November 20, 2010
+Updated: ...
 Author: Mihai Șucan <mihai.sucan@gmail.com> (robodesign.ro)
 
 - Based on GoogleSiteMap by Shaun McCormick <shaun@modx.com>.
