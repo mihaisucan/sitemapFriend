@@ -88,7 +88,7 @@ class sitemapFriend {
    * Generate the entire site map.
    *
    * @access public
-   * @return string The ste map output, based on current configuration. Format
+   * @return string The site map output, based on current configuration. Format
    * is entirely dependent on the chunks used.
    */
   public function run() {
