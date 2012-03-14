@@ -303,6 +303,8 @@ class sitemapFriend {
           }
           $props['changefreq'] = $changefreq;
           $props['priority'] = $priority;
+          // escape ampersand as per http://www.w3.org/TR/REC-xml/#syntax
+          preg_replace('/&/', '&amp;', $props['title']);
         }
 
         $output .= $this->getChunk('Item', $props);
