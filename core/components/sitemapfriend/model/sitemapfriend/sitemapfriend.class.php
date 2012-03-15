@@ -88,7 +88,7 @@ class sitemapFriend {
    * Generate the entire site map.
    *
    * @access public
-   * @return string The ste map output, based on current configuration. Format
+   * @return string The site map output, based on current configuration. Format
    * is entirely dependent on the chunks used.
    */
   public function run() {
@@ -303,6 +303,8 @@ class sitemapFriend {
           }
           $props['changefreq'] = $changefreq;
           $props['priority'] = $priority;
+          // escape ampersand as per http://www.w3.org/TR/REC-xml/#syntax
+          $props['title'] = preg_replace('/&/', '&amp;', $props['title']);
         }
 
         $output .= $this->getChunk('Item', $props);
